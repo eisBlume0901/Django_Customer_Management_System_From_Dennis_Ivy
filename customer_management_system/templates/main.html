@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}Customer Relationship Management System{% endblock %}</title>
+</head>
+<body class="font-sans bg-indigo-950">
+        {% block content %}{% endblock %}
+    <footer class="text-indigo-300 text-xs text-center my-4">
+        Copyright &copy; {% now "Y" %}
+    </footer>
+</body>
+<script src="https://cdn.tailwindcss.com"></script>
+</html>
