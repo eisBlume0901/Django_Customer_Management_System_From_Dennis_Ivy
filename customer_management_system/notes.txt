@@ -1,0 +1,11 @@
+python manage.py createsuperuser - creates an admin account (asks for username, email, and password)
+
+Sample of superuser/admin:
+admin
+admin@eisBlume.com
+adminIsEisBlume
+
+python manage.py migrate - migrates preliminary tables such as auth_user, run also this command after you run "makemigrations" command
+
+python manage.py makemigrations - makes migration file for newly created models
+
