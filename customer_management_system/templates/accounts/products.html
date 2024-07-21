@@ -1,5 +1,43 @@
 {% extends 'main.html' %}
 {% block content %}
+{% include 'partials/_home_navbar.html' %}
+<div class="max-w-screen-lg mx-auto my-4">
 
-<h1 class="text-red-700">Products</h1>
+    <div class="flex flex-col space-y-2">
+        <a class="text-indigo-300 font-semibold text-sm text-center">Products</a>
+    
+        <div class="relative overflow-x-auto shadow-md rounded-lg">
+            <table class="w-full text-sm text-left text-indigo-300">
+                <thead class="text-xs text-indigo-300 bg-indigo-800">
+                    <tr>
+                        <th class="px-6 py-2">
+                            Products
+                        </th>
+                        <th class="px-6 py-2">
+                            Category
+                        </th>
+                        <th class="px-6 py-2">
+                            Price
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="text-xs text-indigo-800 font-medium">
+                    <tr class="bg-indigo-300 border-b-2 border-indigo-800 hover:bg-indigo-200">
+                        <td class="px-6 py-2">Boots</td>
+                        <td class="px-6 py-2">Shoes</td>
+                        <td class="px-6 py-2">4499.00</td>
+                    </tr>
+                    <tr class="bg-indigo-300 border-b-2 border-indigo-800 hover:bg-indigo-200">
+                        <td class="px-6 py-2">Trainer Shoes</td>
+                        <td class="px-6 py-2">Shoes</td>
+                        <td class="px-6 py-2">2499.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div>
+
+
 {% endblock %}
