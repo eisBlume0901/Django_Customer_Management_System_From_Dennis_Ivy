@@ -1,17 +1,33 @@
+{% load static %}
 <div class="grid grid-cols-3 max-w-screen-lg mx-auto justify-between space-x-6 mt-6">
     <div class="flex flex-col">
         <h1 class="text-md text-center text-indigo-300 font-bold rounded-t-lg bg-indigo-800 border-indigo-800 border-b-2 border-b-indigo-300 py-2">Total Orders</h1>
-        <div class="text-md text-center text-indigo-800 font-medium rounded-b-lg bg-indigo-300 p-5">
+        <div class="rounded-b-lg bg-indigo-300 p-2 w-full">
+            <div class="flex flex-row mx-auto space-x-6 items-center justify-center p-2 h-24">
+                <p class="text-3xl text-center text-indigo-800 font-bold">1000</p>   
+                <img src="{% static '/images/total_orders_icon.png' %}" alt="Total Orders Icon" class="w-16">    
+            </div>
+                    
         </div>
     </div>
     <div class="flex flex-col">
         <h1 class="text-md text-center text-indigo-300 font-bold rounded-t-lg bg-indigo-800 border-indigo-800 border-b-2 border-b-indigo-300 py-2">Orders Delivered</h1>
-        <div class="text-md text-center text-indigo-800 font-medium rounded-b-lg bg-indigo-300 p-5">
+        <div class="rounded-b-lg bg-indigo-300 p-2 w-full">
+            <div class="flex flex-row mx-auto space-x-6 items-center justify-center p-2 h-24">
+                <p class="text-3xl text-center text-indigo-800 font-bold">1000</p>   
+                <img src="{% static '/images/orders_delivered_icon.png' %}" alt="Orders Delivered Icon" class="w-16">    
+            </div>
+                    
         </div>
     </div>
     <div class="flex flex-col">
-        <h1 class="text-md text-center text-indigo-300 font-bold rounded-t-lg bg-indigo-800 border-indigo-800 border-b-2 border-b-indigo-300 py-2">Orders Pending</h1>
-        <div class="text-md text-center text-indigo-800 font-medium rounded-b-lg bg-indigo-300 p-5">
+        <h1 class="text-md text-center text-indigo-300 font-bold rounded-t-lg bg-indigo-800 border-indigo-800 border-b-2 border-b-indigo-300 py-2">Orders Delivered</h1>
+        <div class="rounded-b-lg bg-indigo-300 p-2 w-full">
+            <div class="flex flex-row mx-auto space-x-6 items-center justify-center p-2 h-24">
+                <p class="text-3xl text-center text-indigo-800 font-bold">20000</p>   
+                <img src="{% static '/images/orders_pending_icon.png' %}" alt="Orders Pending Icon" class="w-14">    
+            </div>
+                    
         </div>
     </div>
 </div> 
