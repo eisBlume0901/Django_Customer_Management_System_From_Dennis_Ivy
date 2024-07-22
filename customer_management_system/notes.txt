@@ -11,3 +11,14 @@ python manage.py makemigrations - makes migration file for newly created models
 
 To delete a migration file:
 - just simply delete a migration file and run the commands "makemigrations" and "migrate" to update your database tables
+
+Queries 
+https://docs.djangoproject.com/en/5.0/ref/models/querysets
+For related objects (Primary and Foreign key relationships): https://docs.djangoproject.com/en/5.0/topics/db/queries/#queryset-model-example
+Example: https://docs.djangoproject.com/en/5.0/topics/db/queries/#queryset-model-example
+
+To use the QuerySet API
+For testing
+- python manage.py shell - opens shell
+- from [appname].models import *
+ 
