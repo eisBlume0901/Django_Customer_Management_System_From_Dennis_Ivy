@@ -9,3 +9,5 @@ python manage.py migrate - migrates preliminary tables such as auth_user, run al
 
 python manage.py makemigrations - makes migration file for newly created models
 
+To delete a migration file:
+- just simply delete a migration file and run the commands "makemigrations" and "migrate" to update your database tables

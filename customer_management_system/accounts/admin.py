@@ -6,3 +6,4 @@ from .models import *
 admin.site.register(Customer) # This will be present in the admin panel
 admin.site.register(Product)
 admin.site.register(Order)
+admin.site.register(Tag)

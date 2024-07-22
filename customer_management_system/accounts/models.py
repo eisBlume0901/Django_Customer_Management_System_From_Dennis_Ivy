@@ -23,8 +23,9 @@ class Product(models.Model):
     price = models.FloatField(null=True)
     # choices gives you a default dropdown
     category = models.CharField(max_length=200, null=True, choices=CATEGORY)
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
+    tags = models.ManyToManyField('Tag')
 
     def __str__(self) -> str:
         return self.name
@@ -37,5 +38,19 @@ class Order(models.Model):
         ('Out for delivery', 'Out for delivery'),
         ('Delivered', 'Delivered'),
     )
+
+    # Establishing relationship with Customer and Product using foreign key and on_delete
+    # on_delete means if the customer is deleted, the order wil not be deleted
+    customer = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL)
+    product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=200, null=True, choices=STATUS)
+
+
+class Tag(models.Model):
+
+    name = models.CharField(max_length=200, unique=True, null=True)
+
+    def __str__(self) -> str:
+        return self.name
+    
