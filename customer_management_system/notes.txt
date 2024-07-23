@@ -22,3 +22,6 @@ For testing
 - python manage.py shell - opens shell
 - from [appname].models import *
  
+ Template tags
+ {% %} - static (loops or conditionals within the template. They do not produce any output directly but control the flow or logic of the template)
+ {{}} - dynamic (They are used to output the value of a variable or an expression)
