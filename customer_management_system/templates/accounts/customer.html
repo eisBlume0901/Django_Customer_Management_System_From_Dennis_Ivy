@@ -21,10 +21,10 @@
                         <th class="px-6 py-2">
                             Status
                         </th>
-                        <th class="px-6 py-2">
+                        <th class="p-2">
                             Update
                         </th>
-                        <th class="px-6 py-2">
+                        <th class="p-2">
                             Remove
                         </th>
                     </tr>
@@ -36,8 +36,16 @@
                         <td class="px-6 py-2">{{ order.product.category }}</td>
                         <td class="px-6 py-2">{{ order.product.date_created }}</td>
                         <td class="px-6 py-2">{{ order.status}}</td>
-                        <td class="px-6 py-2"></td>
-                        <td class="px-6 py-2"></td>
+                        <td class="p-2">
+                            <a href="">
+                                <button class="font-medium bg-teal-700 text-indigo-300 rounded-lg px-4 py-2 hover:bg-teal-300 hover:text-indigo-800">Update</button>
+                            </a>
+                        </td>
+                        <td class="p-2">
+                            <a href="">
+                                <button class="font-medium bg-pink-800 text-indigo-300 rounded-lg px-4 py-2 hover:bg-pink-300 hover:text-indigo-800">Remove</button>    
+                            </a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
