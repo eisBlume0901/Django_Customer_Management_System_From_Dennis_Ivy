@@ -10,4 +10,5 @@ urlpatterns = [
     # The view will then use this parameter to query the database
     # Purpose is for dynamic routing
     path('customer/<str:pk>/', views.customer, name="customer"),
+    path('create_order/', views.createOrder, name="create_order"),
 ]

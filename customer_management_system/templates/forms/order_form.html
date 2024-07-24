@@ -1,0 +1,9 @@
+{% extends 'main.html' %}
+{% block content %}
+{% include 'partials/_home_navbar.html' %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <input type="submit" name="Submit">
+</form>
+{% endblock %}

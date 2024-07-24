@@ -36,3 +36,6 @@ def customer(request, pk):
         'ordersCount': ordersCount,
     }
     return render(request, 'accounts/customer.html', context)
+
+def createOrder(request):
+    return render(request, 'forms/order_form.html')
