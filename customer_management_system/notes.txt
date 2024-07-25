@@ -36,3 +36,10 @@ For testing
  4. DRY Principle 
  In Laravel, we have to do the generic way of creating forms such as putting the name (table header name) and its value.
  Furthermore, we will handle the validation through Controllers.
+
+ Disadvantage:
+ 1. No customization to forms. Have to use third party apps such as django-crispy-forms
+ https://bugbytes.io/posts/integrating-django-crispy-forms-with-tailwindcss/
+
+ pip install django-crispy-forms
+ pip install crispy-tailwind
