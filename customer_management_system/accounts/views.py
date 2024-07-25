@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.urls import reverse
 from .models import *
+
+from .forms import * # Means that we are importing that Form class from the forms.py file
 # Create your views here.
 def home(request):
     allOrders = Order.objects.all()
@@ -38,4 +41,18 @@ def customer(request, pk):
     return render(request, 'accounts/customer.html', context)
 
 def createOrder(request):
-    return render(request, 'forms/order_form.html')
+
+    form = OrderForm()
+
+    if request.method == 'POST':
+        # print("Printing POST:", request.POST) # For debugging purposes
+
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('home')) # Redirect using the name of the url (instead of the route path)
+        
+    context = {
+        'form': form,
+    }
+    return render(request, 'forms/order_form.html', context)

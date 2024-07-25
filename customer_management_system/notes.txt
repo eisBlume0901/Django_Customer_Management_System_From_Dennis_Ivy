@@ -25,3 +25,14 @@ For testing
  Template tags
  {% %} - static (loops or conditionals within the template. They do not produce any output directly but control the flow or logic of the template)
  {{}} - dynamic (They are used to output the value of a variable or an expression)
+
+ Forms 
+ Model Forms - https://docs.djangoproject.com/en/5.0/topics/forms/modelforms/
+ Instead of creating a generic form, Django allows you to automatically generate forms through their Model Forms feature.
+ Advantages:
+ 1. Automatic Form Generation
+ 2. Built-in Validation
+ 3. Integration with ORM (Directly saves form data to the database using the model's save() method)
+ 4. DRY Principle 
+ In Laravel, we have to do the generic way of creating forms such as putting the name (table header name) and its value.
+ Furthermore, we will handle the validation through Controllers.
