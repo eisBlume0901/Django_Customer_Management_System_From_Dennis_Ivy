@@ -33,7 +33,7 @@ For testing
  1. Automatic Form Generation
  2. Built-in Validation
  3. Integration with ORM (Directly saves form data to the database using the model's save() method)
- 4. DRY Principle 
+ 4. DRY Principle - create, update forms can be reused look at views.createOrder and views.updateOrder!!!
  In Laravel, we have to do the generic way of creating forms such as putting the name (table header name) and its value.
  Furthermore, we will handle the validation through Controllers.
 

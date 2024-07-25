@@ -1,0 +1,16 @@
+{% extends 'main.html' %}
+{% block content %}
+{% include 'partials/_home_navbar.html' %}
+
+
+<div class="max-w-screen-sm mx-auto p-4 bg-indigo-300 text-indigo-800 rounded-lg my-10">
+    <p>Are you sure you want to delete "{{ order.product.name }}"?</p>
+    <form action="{% url 'delete_order' order.id %}" method="POST">
+
+        {% csrf_token %}
+        <a href="{% url 'home' %}" class="text-indigo-800">Cancel</a>
+        <button type="Submit" name="Confirm" class="bg-indigo-800 text-indigo-300 px-4 py-2 rounded-lg hover:bg-indigo-200 hover:text-indigo-800 mt-6">Delete</button>
+    </form>
+</div>
+
+{% endblock %}

@@ -3,7 +3,8 @@
 {% include 'partials/_home_navbar.html' %}
 {% load crispy_forms_tags %}
 
-<form action="" method="POST" class="max-w-screen-sm mx-auto p-4 bg-indigo-300 text-indigo-800 rounded-lg my-10">
+<!-- No need to specify the action for create and update since they share the same form. The form will be rendered in the same template. The action will be determined by the view that renders the template. -->
+<form method="POST" class="max-w-screen-sm mx-auto p-4 bg-indigo-300 text-indigo-800 rounded-lg my-10">
     {% csrf_token %}
     
     {{ form|crispy }}
