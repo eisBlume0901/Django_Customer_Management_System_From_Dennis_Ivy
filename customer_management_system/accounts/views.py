@@ -40,9 +40,10 @@ def customer(request, pk):
     }
     return render(request, 'accounts/customer.html', context)
 
-def createOrder(request):
+def createOrder(request, pk):
 
-    form = OrderForm()
+    customer = Customer.objects.get(id=pk)
+    form = OrderForm(initial={'customer': customer})
 
     if request.method == 'POST':
         # print("Printing POST:", request.POST) # For debugging purposes
@@ -50,7 +51,7 @@ def createOrder(request):
         form = OrderForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect(reverse('home')) # Redirect using the name of the url (instead of the route path)
+            return redirect('/') # Redirect using the name of the url (instead of the route path)
         
     context = {
         'form': form,
