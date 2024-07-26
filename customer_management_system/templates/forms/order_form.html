@@ -7,7 +7,7 @@
 <form method="POST" class="max-w-screen-sm mx-auto p-4 bg-indigo-300 text-indigo-800 rounded-lg my-10">
     {% csrf_token %}
     
-    {{ form|crispy }}
+    {{ formset|crispy }}
 
     <button type="Submit" name="submit" class="bg-indigo-800 text-indigo-300 px-4 py-2 rounded-lg hover:bg-indigo-200 hover:text-indigo-800 mt-6">Submit</button>
 </form>

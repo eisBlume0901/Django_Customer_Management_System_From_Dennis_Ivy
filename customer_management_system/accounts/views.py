@@ -4,6 +4,7 @@ from django.urls import reverse
 from .models import *
 
 from .forms import * # Means that we are importing that Form class from the forms.py file
+from django.forms import inlineformset_factory # Allows creation of multiple forms with single submit button (so that you can do mass creation and updates of data)
 
 # Create your views here.
 def home(request):
@@ -43,9 +44,12 @@ def customer(request, pk):
 
 def createOrder(request, pk):
 
+    # Have to declare the parent model first and then the child model (if there is a foreign key relationship)
+    # If there is no parent-child relationship, then you can just declare the child model (or the model that you want to create a form for)
+    OrderFormSet = inlineformset_factory(Customer, Order, fields=('product', 'status'), extra=10) # extra is the number of forms that you want to display
     customer = Customer.objects.get(id=pk)
-    form = OrderForm(initial={'customer': customer}) # Existing customer can place an order (makes sense to have the customer field pre-filled)
-    # Earlier, we were using an empty form, but now we are using a form with the customer field pre-filled specific to the customer
+    formset = OrderFormSet(instance=customer) # For multiple forms, we use formset instead of form
+
 
     if request.method == 'POST':
         # print("Printing POST:", request.POST) # For debugging purposes
@@ -56,7 +60,7 @@ def createOrder(request, pk):
             return redirect(reverse('home')) # Redirect using the name of the url (instead of the route path)
         
     context = {
-        'form': form,
+        'formset': formset,
     }
     return render(request, 'forms/order_form.html', context)
 
