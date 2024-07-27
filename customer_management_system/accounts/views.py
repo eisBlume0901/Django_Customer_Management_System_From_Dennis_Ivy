@@ -48,13 +48,16 @@ def createOrder(request, pk):
     # If there is no parent-child relationship, then you can just declare the child model (or the model that you want to create a form for)
     OrderFormSet = inlineformset_factory(Customer, Order, fields=('product', 'status'), extra=10) # extra is the number of forms that you want to display
     customer = Customer.objects.get(id=pk)
-    formset = OrderFormSet(instance=customer) # For multiple forms, we use formset instead of form
+
+    # queryset=Order.objects.none() is used to prevent the form from displaying any existing data (since we are creating a new form)
+    # It should belong to updateOrder function if we want to display existing data
+    formset = OrderFormSet(queryset=Order.objects.none(),instance=customer) # For multiple forms, we use formset instead of form
 
 
     if request.method == 'POST':
         # print("Printing POST:", request.POST) # For debugging purposes
 
-        form = OrderForm(request.POST)
+        form = OrderFormSet(request.POST, instance=customer) # For multiple forms, we use formset instead of form (and we pass the instance of the parent model so that the child model can be created)
         if form.is_valid():
             form.save()
             return redirect(reverse('home')) # Redirect using the name of the url (instead of the route path)
