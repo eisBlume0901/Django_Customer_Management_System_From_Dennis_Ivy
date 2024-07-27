@@ -43,3 +43,12 @@ For testing
 
  pip install django-crispy-forms
  pip install crispy-tailwind
+
+For search filters, instead of implementing SQL syntax, you can just implement django-filter.
+https://django-filter.readthedocs.io/en/stable/guide/usage.html
+ pip install django-filter
+
+ List of installed packages:
+ 1. pip install django-crispy-Forms
+ 2. pip install crispy-tailwind
+ 3. pip install django-filter

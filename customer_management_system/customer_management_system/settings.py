@@ -32,6 +32,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+
+    'django_filters', # Add this line of code to install the django_filters package
+    
     'crispy_forms',
     'crispy_tailwind', # Add this line of code to install the crispy_tailwind package
 

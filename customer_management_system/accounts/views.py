@@ -6,6 +6,8 @@ from .models import *
 from .forms import * # Means that we are importing that Form class from the forms.py file
 from django.forms import inlineformset_factory # Allows creation of multiple forms with single submit button (so that you can do mass creation and updates of data)
 
+from .filters import *
+
 # Create your views here.
 def home(request):
     allOrders = Order.objects.all()
@@ -35,10 +37,15 @@ def customer(request, pk):
     customer = Customer.objects.get(id=pk)
     orders = customer.order_set.all()
     ordersCount = orders.count()
+
+    orderFilter = OrderFilter(request.GET, queryset=orders)
+    orders = orderFilter.qs # From all possible existing orders to filtered order
+    
     context = {
         'customer': customer,
         'orders': orders,
         'ordersCount': ordersCount,
+        'orderFilter': orderFilter,
     }
     return render(request, 'accounts/customer.html', context)
 

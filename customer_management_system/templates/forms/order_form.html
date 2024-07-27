@@ -10,7 +10,9 @@
     {{ formset.management_form }}
     {% for form in formset %}
         <div class="bg-indigo-300 rounded-lg my-6 p-6 text-indigo-800 ">
-            {{ form|crispy }}
+            <div class="flex flex-row flex-wrap gap-6 w-full mx-auto">
+                {{ form|crispy }}
+            </div>
         </div>
     {% endfor %}
 
