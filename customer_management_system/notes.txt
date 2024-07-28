@@ -41,6 +41,8 @@ For testing
  1. No customization to forms. Have to use third party apps such as django-crispy-forms
  https://bugbytes.io/posts/integrating-django-crispy-forms-with-tailwindcss/
 
+ UPDATE: YOU CAN CUSTOMIZE FORMS! USING TAILWIND CSS @apply for input fields and even for easier reusing of styles!!!
+
  pip install django-crispy-forms
  pip install crispy-tailwind
 
@@ -52,3 +54,5 @@ https://django-filter.readthedocs.io/en/stable/guide/usage.html
  1. pip install django-crispy-Forms
  2. pip install crispy-tailwind
  3. pip install django-filter
+
+ Django has automatic USER CREATION (One that handles registration)

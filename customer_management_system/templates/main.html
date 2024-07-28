@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}Customer Relationship Management System{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style type="text/tailwindcss">
+        @layer components {
+            input[type="text"], input[type="email"], input[type="password"] {
+                @apply bg-indigo-200 text-indigo-800 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-800 w-full;
+            }
+            select {
+                @apply bg-indigo-200 text-indigo-800 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-800 w-full;
+            }
+       
+        }
+    </style>
 </head>
 <body class="font-sans bg-indigo-950">
         {% block content %}{% endblock %}
@@ -17,5 +29,4 @@
         
     </footer>
 </body>
-<script src="https://cdn.tailwindcss.com"></script>
 </html>

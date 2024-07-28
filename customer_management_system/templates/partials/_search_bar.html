@@ -1,7 +1,27 @@
 {% load crispy_forms_tags %}
 <form method="GET" class="bg-indigo-300 max-w-screen-lg mx-auto my-6 p-4 rounded-xl">
-    <div class="flex flex-wrap gap-4 mx-auto w-full">
-        {{ orderFilter.form|crispy }}
+    <div class="flex gap-4 mx-auto mb-4 w-full lg:flex-row md:flex-col sm:flex-col">
+        <!-- {{ orderFilter.form|crispy }} -->
+
+        <div class="flex sm:flex-row md:flex-row lg:flex-col gap-2">
+            {{ orderFilter.form.product_name.label }}
+            {{ orderFilter.form.product_name}}
+
+        </div>
+        <div class="flex sm:flex-row md:flex-row lg:flex-col gap-2">
+            {{ orderFilter.form.status.label }}
+            {{ orderFilter.form.status}}
+        </div>
+
+        <div class="flex sm:flex-row md:flex-row lg:flex-col gap-2">
+            {{ orderFilter.form.start_date.label }}
+            {{ orderFilter.form.start_date}}
+        </div>
+
+        <div class="flex sm:flex-row md:flex-row lg:flex-col gap-2">
+            {{ orderFilter.form.end_date.label }}
+            {{ orderFilter.form.end_date}}
+        </div>
     </div>
     <button name="submit" type="Submit" class="font-medium bg-indigo-800 text-indigo-300 rounded-lg px-4 py-2 hover:bg-indigo-200 hover:text-indigo-800">Search</button>    
 </form>

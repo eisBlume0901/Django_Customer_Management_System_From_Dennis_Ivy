@@ -8,6 +8,7 @@ from django.forms import inlineformset_factory # Allows creation of multiple for
 
 from .filters import *
 
+
 # Create your views here.
 def home(request):
     allOrders = Order.objects.all()
@@ -104,3 +105,19 @@ def deleteOrder(request, pk):
 
     }
     return render(request, 'forms/delete_form.html', context)
+
+def register(request):
+    form = RegisterUserForm()
+    context = {
+        'form': form,
+    }
+
+    if request.method == 'POST':
+        form = RegisterUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+         
+    return render(request, 'forms/register.html', context)
+
+def login(request):
+    return render(request, 'forms/login.html')

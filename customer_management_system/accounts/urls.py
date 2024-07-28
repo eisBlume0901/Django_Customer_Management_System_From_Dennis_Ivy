@@ -4,6 +4,9 @@ from . import views
 # https://docs.djangoproject.com/en/5.0/topics/http/urls/
 # Every url must end with a slash
 urlpatterns = [
+    path('register/', views.register, name="register"),
+    path('login/', views.login, name="login"),
+
     path('', views.home, name="home"),
     path('products/', views.products, name="products"),
     # pk means primary key, it is a parameter to be passed to the view
