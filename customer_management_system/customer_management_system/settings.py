@@ -34,9 +34,6 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
 
     'django_filters', # Add this line of code to install the django_filters package
-    
-    'crispy_forms',
-    'crispy_tailwind', # Add this line of code to install the crispy_tailwind package
 
     'accounts',
 
@@ -47,9 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-
-CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
-CRISPY_TEMPLATE_PACK = "tailwind"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
