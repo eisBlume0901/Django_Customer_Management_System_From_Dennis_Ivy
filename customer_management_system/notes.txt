@@ -42,6 +42,15 @@ For testing
  https://bugbytes.io/posts/integrating-django-crispy-forms-with-tailwindcss/
 
  UPDATE: YOU CAN CUSTOMIZE FORMS! USING TAILWIND CSS @apply for input fields and even for easier reusing of styles!!!
+ Difference with crispy-forms is you have to deal with input validation / warnings
+Error messages: 
+https://docs.djangoproject.com/en/5.0/topics/forms/modelforms/
+https://docs.djangoproject.com/en/5.0/ref/forms/api/#how-errors-are-displayed
+Solution to display error messages:
+Using class-based views: https://docs.djangoproject.com/en/5.0/topics/class-based-views/intro/
+Project tutorial using class based views: https://youtu.be/llbtoQTt4qw
+*args and **kwargs: https://www.programiz.com/python-programming/args-and-kwargs
+Class-based view documentation: https://ccbv.co.uk/
 
  pip install django-crispy-forms
  pip install crispy-tailwind

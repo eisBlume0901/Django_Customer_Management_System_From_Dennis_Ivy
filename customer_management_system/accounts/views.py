@@ -7,6 +7,7 @@ from .forms import * # Means that we are importing that Form class from the form
 from django.forms import inlineformset_factory # Allows creation of multiple forms with single submit button (so that you can do mass creation and updates of data)
 
 from .filters import *
+from django.views.generic import *
 
 
 # Create your views here.
@@ -106,18 +107,26 @@ def deleteOrder(request, pk):
     }
     return render(request, 'forms/delete_form.html', context)
 
-def register(request):
-    form = RegisterUserForm()
-    context = {
-        'form': form,
-    }
+# views.py
 
-    if request.method == 'POST':
+class RegisterView(TemplateView, UserCreationForm): # Overrides the default TemplateView (allows you to see the error messages)
+    template_name = 'forms/register.html'
+
+    def get(self, request, *args, **kwargs):
+        form = RegisterUserForm()
+        return self.render_to_response(self.get_context_data(form=form))
+
+    def post(self, request, *args, **kwargs):
         form = RegisterUserForm(request.POST)
         if form.is_valid():
             form.save()
-         
-    return render(request, 'forms/register.html', context)
+            return redirect(reverse('login'))
+        return self.render_to_response(self.get_context_data(form=form))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = kwargs.get('form', RegisterUserForm())
+        return context
 
 def login(request):
     return render(request, 'forms/login.html')

@@ -3,22 +3,40 @@
 {% include 'partials/_home_navbar.html' %}
 {% load crispy_forms_tags %}
 
-<form action="" method="POST" class="max-w-screen-sm mx-auto mt-10 max-h-full bg-indigo-300 text-indigo-800 p-8 rounded-lg">
+<form action="" method="POST" class="max-w-screen-sm mx-auto mt-10 max-h-full bg-indigo-300 text-indigo-800 p-6 rounded-lg">
     {% csrf_token %}
 
-    <div class="flex flex-col gap-6">
+    <div class="flex flex-col gap-4">
         <div class="text-lg text-indigo-800 font-medium">
             {{ form.username.label }}
         </div>
         <div class="w-full">
             {{ form.username }}
+
+            {% if form.username.errors %}
+                {% for error in form.username.errors %}
+                    <div class="text-indigo-800 text-xs mt-2">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
         </div>
+
     
         <div class="text-lg text-indigo-800 font-medium">
             {{ form.email.label }}
         </div>
         <div>
             {{ form.email }}
+
+            {% if form.email.errors %}
+                {% for error in form.email.errors %}
+                    <div class="text-indigo-800 text-xs mt-2">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
         </div>
     
         <div class="text-lg text-indigo-800 font-medium">
@@ -26,6 +44,14 @@
         </div>
         <div>
             {{ form.password1 }}
+
+            {% if form.password1.errors %}
+                {% for error in form.password1.errors %}
+                    <div class="text-indigo-800 text-xs mt-2">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
         </div>
         
         <div class="text-lg text-indigo-800 font-medium">
@@ -33,6 +59,14 @@
         </div>
         <div>
             {{ form.password2 }}
+
+            {% if form.password2.errors %}
+                {% for error in form.password2.errors %}
+                    <div class="text-indigo-800 text-xs mt-2">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
    
