@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+{% block content %}
+{% include 'partials/_home_navbar.html' %}
+
+<form method="POST" class="max-w-screen-sm mx-auto mt-10 max-h-full bg-indigo-300 text-indigo-800 p-6 rounded-lg">
+    {% csrf_token %}
+
+    <div class="flex flex-col gap-4">
+
+    </div>
+    
+    <div class="flex flex-row gap-4 items-center mt-6">
+        <button type="Submit" name="submit" class="bg-indigo-800 text-indigo-300 px-4 py-2 rounded-lg hover:bg-indigo-200 hover:text-indigo-800">Register</button>
+        <a href="{% url 'login' %}" class="text-indigo-800">Already have an account? <span class="hover:font-medium">Login</span></a>
+    </div>
+</form>
+{% endblock %}

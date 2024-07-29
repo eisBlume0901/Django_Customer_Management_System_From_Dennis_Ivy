@@ -1,11 +1,11 @@
 from django.urls import path
 from . import views 
-from .views import RegisterView
+# from .views import RegisterView
 
 # https://docs.djangoproject.com/en/5.0/topics/http/urls/
 # Every url must end with a slash
 urlpatterns = [
-    path('register/', RegisterView.as_view(), name="register"),
+    path('register/', views.register, name="register"),
     path('login/', views.login, name="login"),
 
     path('', views.home, name="home"),

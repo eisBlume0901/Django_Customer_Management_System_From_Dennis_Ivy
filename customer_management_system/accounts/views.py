@@ -107,26 +107,15 @@ def deleteOrder(request, pk):
     }
     return render(request, 'forms/delete_form.html', context)
 
-# views.py
 
-class RegisterView(TemplateView, UserCreationForm): # Overrides the default TemplateView (allows you to see the error messages)
-    template_name = 'forms/register.html'
-
-    def get(self, request, *args, **kwargs):
-        form = RegisterUserForm()
-        return self.render_to_response(self.get_context_data(form=form))
-
-    def post(self, request, *args, **kwargs):
+def register(request):
+    form = RegisterUserForm()
+    if request.method == 'POST':
         form = RegisterUserForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect(reverse('login'))
-        return self.render_to_response(self.get_context_data(form=form))
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['form'] = kwargs.get('form', RegisterUserForm())
-        return context
+    return render(request, 'forms/register.html', {'form': form})
 
 def login(request):
     return render(request, 'forms/login.html')
