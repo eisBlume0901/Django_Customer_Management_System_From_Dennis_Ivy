@@ -7,8 +7,7 @@ from .forms import * # Means that we are importing that Form class from the form
 from django.forms import inlineformset_factory # Allows creation of multiple forms with single submit button (so that you can do mass creation and updates of data)
 
 from .filters import *
-from django.views.generic import *
-
+from django.contrib import messages
 
 # Create your views here.
 def home(request):
@@ -73,25 +72,26 @@ def createOrder(request, pk):
         
     context = {
         'formset': formset,
+        'is_update': False,
     }
     return render(request, 'forms/order_form.html', context)
 
 def updateOrder(request, pk):
-
     order = Order.objects.get(id=pk)
-    form = OrderForm(instance=order)
+    customer = order.customer
+    OrderFormSet = inlineformset_factory(Customer, Order, fields=('product', 'status'), extra=0)
+    formset = OrderFormSet(queryset=Order.objects.filter(id=pk), instance=customer)
 
     if request.method == 'POST':
-        form = OrderForm(request.POST, instance=order)
+        formset = OrderFormSet(request.POST, instance=customer)
+        if formset.is_valid():
+            formset.save()
+            return redirect(reverse('home'))
 
-    if form.is_valid():
-        form.save()
-        return redirect(reverse('home')) 
-    
     context = {
-        'form': form,
+        'formset': formset,
+        'is_update': True,
     }
-
     return render(request, 'forms/order_form.html', context)
 
 def deleteOrder(request, pk):

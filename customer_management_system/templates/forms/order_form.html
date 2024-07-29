@@ -1,7 +1,6 @@
 {% extends 'main.html' %}
 {% block content %}
 {% include 'partials/_home_navbar.html' %}
-{% load crispy_forms_tags %}
 
 <!-- No need to specify the action for create and update since they share the same form. The form will be rendered in the same template. The action will be determined by the view that renders the template. -->
 <form method="POST" class="max-w-screen-sm mx-auto my-10">
@@ -21,6 +20,13 @@
                 </label>
                 {{ form.status }}
                 
+                {% if is_update == True %}
+                    <label>
+                        {{ form.DELETE.label }}
+                    </label>
+                    {{ form.DELETE }}
+                {% endif %}
+               
             </div>
         </div>
     {% endfor %}
@@ -29,4 +35,4 @@
 </form>
 
 
-{% endblock %}cd c
+{% endblock %}

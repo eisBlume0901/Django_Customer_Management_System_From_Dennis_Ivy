@@ -42,7 +42,7 @@ For testing
  https://bugbytes.io/posts/integrating-django-crispy-forms-with-tailwindcss/
 
  UPDATE: YOU CAN CUSTOMIZE FORMS! USING TAILWIND CSS @apply for input fields and even for easier reusing of styles!!!
- Difference with crispy-forms is you have to deal with input validation / warnings
+ 
 Error messages: 
 https://docs.djangoproject.com/en/5.0/topics/forms/modelforms/
 https://docs.djangoproject.com/en/5.0/ref/forms/api/#how-errors-are-displayed
@@ -52,12 +52,19 @@ Project tutorial using class based views: https://youtu.be/llbtoQTt4qw
 *args and **kwargs: https://www.programiz.com/python-programming/args-and-kwargs
 Class-based view documentation: https://ccbv.co.uk/
 
+Update:
+django-crispy-forms conflicted error_messages!!! This is why overriding class-based views works! If django-crispy forms is not installed,
+error_messages are easily displayed!
+
  pip install django-crispy-forms
  pip install crispy-tailwind
 
 For search filters, instead of implementing SQL syntax, you can just implement django-filter.
 https://django-filter.readthedocs.io/en/stable/guide/usage.html
  pip install django-filter
+
+Flash messages: https://docs.djangoproject.com/en/5.0/ref/contrib/messages/
+
 
  List of installed packages:
  1. pip install django-crispy-Forms
