@@ -98,4 +98,11 @@
         </div>
     </div>
 </div>
+
+{% for message in messages%}
+    <div class="bg-indigo-300 border-2 border-indigo-800 text-indigo-800 font-medium p-2 text-xs rounded-lg max-w-screen-sm bottom-5 right-10 fixed">
+        {{message}}
+    </div>
+{% endfor %}
+
 {% endblock %}

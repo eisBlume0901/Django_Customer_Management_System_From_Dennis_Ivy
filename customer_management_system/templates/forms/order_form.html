@@ -10,6 +10,8 @@
     {% for form in formset %}
         <div class="bg-indigo-300 rounded-lg my-6 p-6 text-indigo-800 ">
             <div class="flex flex-row gap-4 items-center w-full mx-auto">
+                {{ form.id }} 
+                <!-- Have to put this since we are requesting the id in the view -->
                 <label>
                     {{ form.product.label }}
                 </label>

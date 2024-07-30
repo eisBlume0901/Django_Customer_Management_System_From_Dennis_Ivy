@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.urls import reverse
 from .models import *
@@ -68,8 +68,9 @@ def createOrder(request, pk):
         form = OrderFormSet(request.POST, instance=customer) # For multiple forms, we use formset instead of form (and we pass the instance of the parent model so that the child model can be created)
         if form.is_valid():
             form.save()
+            messages.success(request, f'Order was created successfully for {customer.name}')
             return redirect(reverse('home')) # Redirect using the name of the url (instead of the route path)
-        
+
     context = {
         'formset': formset,
         'is_update': False,
@@ -77,7 +78,7 @@ def createOrder(request, pk):
     return render(request, 'forms/order_form.html', context)
 
 def updateOrder(request, pk):
-    order = Order.objects.get(id=pk)
+    order = get_object_or_404(Order, id=pk)
     customer = order.customer
     OrderFormSet = inlineformset_factory(Customer, Order, fields=('product', 'status'), extra=0)
     formset = OrderFormSet(queryset=Order.objects.filter(id=pk), instance=customer)
@@ -86,7 +87,9 @@ def updateOrder(request, pk):
         formset = OrderFormSet(request.POST, instance=customer)
         if formset.is_valid():
             formset.save()
+            messages.success(request, f'Order was updated successfully for {customer.name}')
             return redirect(reverse('home'))
+       
 
     context = {
         'formset': formset,
@@ -99,6 +102,7 @@ def deleteOrder(request, pk):
 
     if request.method == 'POST':
         order.delete()
+        messages.success(request, f'Order was deleted successfully for {order.customer.name}')
         return redirect(reverse('home'))
     
     context = {
@@ -117,6 +121,8 @@ def register(request):
             user = form.cleaned_data.get('username')
             messages.success(request, f'Account was created successfully! for {user}') # This is only seen at 127.0.0.1:800/admin (or admin panel)
             return redirect(reverse('login'))
+        else:
+            messages.error(request, 'There was an error creating the account. Please check the form for errors.')
     return render(request, 'forms/register.html', {'form': form})
 
 def login(request):
