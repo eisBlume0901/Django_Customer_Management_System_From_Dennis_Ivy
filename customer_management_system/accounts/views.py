@@ -10,9 +10,11 @@ from .filters import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
-from .decorators import unauthorized_user
+from .decorators import unauthorized_user, allowed_users
 
 # Create your views here.
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin_group'])
 def home(request):
     allOrders = Order.objects.order_by('-date_created') # Order by date created in descending order
     allCustomers = Customer.objects.all()
@@ -32,11 +34,13 @@ def home(request):
 
     return render(request, 'accounts/dashboard.html', context)
 
+@login_required(login_url='login')
 def products(request):
     allProducts = Product.objects.order_by('-date_created')
     return render(request, 'accounts/products.html', {'products': allProducts})
 
 # pk means primary key
+@login_required(login_url='login')
 def customer(request, pk):
     customer = get_object_or_404(Customer, id=pk) # Much better than Customer.objects.get(id=pk) because it will return a 404 error if the customer does not exist
     orders = customer.order_set.all()
@@ -53,6 +57,7 @@ def customer(request, pk):
     }
     return render(request, 'accounts/customer.html', context)
 
+@login_required(login_url='login')
 def createOrder(request, pk):
 
     # Have to declare the parent model first and then the child model (if there is a foreign key relationship)
@@ -101,6 +106,7 @@ def updateOrder(request, pk):
     }
     return render(request, 'forms/order_form.html', context)
 
+@login_required(login_url='login')
 def deleteOrder(request, pk):
     order = get_object_or_404(Order, id=pk)
 
@@ -156,6 +162,7 @@ def logout(request):
     auth_logout(request)
     return redirect(reverse('login'))
 
+@login_required(login_url='login')
 def updateCustomer(request, pk):
     customer = get_object_or_404(Customer, id=pk)
     form = CustomerForm(instance=customer)
@@ -170,7 +177,8 @@ def updateCustomer(request, pk):
             return redirect(reverse('home'))
         
     return render(request, 'forms/customer_form.html', {'form': form})
- 
+
+
 def userPage(request, pk):
     user = get_object_or_404(User, id=pk)
 

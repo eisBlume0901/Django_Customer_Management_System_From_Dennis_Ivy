@@ -65,6 +65,7 @@ https://django-filter.readthedocs.io/en/stable/guide/usage.html
 
 Flash messages: https://docs.djangoproject.com/en/5.0/ref/contrib/messages/
 
+For role-based permissions and authentication, use groups to categorize users: https://docs.djangoproject.com/en/5.0/topics/auth/default/#permissions-and-authorization
 
  List of installed packages:
  1. pip install django-crispy-Forms
@@ -72,3 +73,7 @@ Flash messages: https://docs.djangoproject.com/en/5.0/ref/contrib/messages/
  3. pip install django-filter
 
  Django has automatic USER CREATION (One that handles registration)
+
+ What to learn:
+ Python decorators
+ 
