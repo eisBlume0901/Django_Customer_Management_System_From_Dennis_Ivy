@@ -67,8 +67,9 @@ def createOrder(request, pk):
 
         form = OrderFormSet(request.POST, instance=customer) # For multiple forms, we use formset instead of form (and we pass the instance of the parent model so that the child model can be created)
         if form.is_valid():
-            form.save()
-            messages.success(request, f'Order was created successfully for {customer.name}')
+            orders = form.save()
+            for order in orders:
+                messages.success(request, f'{order.product.name} was created successfully for {customer.name}')
             return redirect(reverse('home')) # Redirect using the name of the url (instead of the route path)
 
     context = {

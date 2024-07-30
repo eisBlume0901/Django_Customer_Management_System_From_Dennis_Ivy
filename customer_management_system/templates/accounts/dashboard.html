@@ -3,6 +3,17 @@
 {% load static %}
 
 {% include 'partials/_home_navbar.html' %}
+
+<div class="relative">
+    <div class="flex flex-col absolute">
+        {% for message in messages %}
+            <div class="bg-indigo-300 border-2 border-indigo-800 text-indigo-800 font-medium p-2 text-xs rounded-lg max-w-screen-sm top-2 z-10 mt-2">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
 {% include 'partials/_order_status.html' %}
 <div class="flex flex-row mx-auto my-6 max-w-screen-lg justify-between gap-6">
 
@@ -99,10 +110,5 @@
     </div>
 </div>
 
-{% for message in messages%}
-    <div class="bg-indigo-300 border-2 border-indigo-800 text-indigo-800 font-medium p-2 text-xs rounded-lg max-w-screen-sm bottom-5 right-10 fixed">
-        {{message}}
-    </div>
-{% endfor %}
 
 {% endblock %}
