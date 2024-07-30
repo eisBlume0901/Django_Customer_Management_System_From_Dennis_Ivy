@@ -9,10 +9,12 @@ from django.forms import inlineformset_factory # Allows creation of multiple for
 from .filters import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib.auth.decorators import login_required    
 
 # Create your views here.
+@login_required(login_url='login')
 def home(request):
-    allOrders = Order.objects.all()
+    allOrders = Order.objects.order_by('-date_created') # Order by date created in descending order
     allCustomers = Customer.objects.all()
     allPendingOrders = Order.objects.filter(status="Pending").count()
     allOutOfDeliveryOrders = Order.objects.filter(status="Out for delivery").count()
@@ -30,11 +32,13 @@ def home(request):
 
     return render(request, 'accounts/dashboard.html', context)
 
+@login_required(login_url='login')
 def products(request):
-    allProducts = Product.objects.all()
+    allProducts = Product.objects.order_by('-date_created')
     return render(request, 'accounts/products.html', {'products': allProducts})
 
 # pk means primary key
+@login_required(login_url='login')
 def customer(request, pk):
     customer = get_object_or_404(Customer, id=pk) # Much better than Customer.objects.get(id=pk) because it will return a 404 error if the customer does not exist
     orders = customer.order_set.all()
@@ -50,6 +54,7 @@ def customer(request, pk):
         'orderFilter': orderFilter,
     }
     return render(request, 'accounts/customer.html', context)
+
 
 def createOrder(request, pk):
 
