@@ -36,7 +36,7 @@ def products(request):
 
 # pk means primary key
 def customer(request, pk):
-    customer = Customer.objects.get(id=pk)
+    customer = get_object_or_404(Customer, id=pk) # Much better than Customer.objects.get(id=pk) because it will return a 404 error if the customer does not exist
     orders = customer.order_set.all()
     ordersCount = orders.count()
 
@@ -56,7 +56,7 @@ def createOrder(request, pk):
     # Have to declare the parent model first and then the child model (if there is a foreign key relationship)
     # If there is no parent-child relationship, then you can just declare the child model (or the model that you want to create a form for)
     OrderFormSet = inlineformset_factory(Customer, Order, fields=('product', 'status'), extra=10) # extra is the number of forms that you want to display
-    customer = Customer.objects.get(id=pk)
+    customer = get_object_or_404(Customer, id=pk)
 
     # queryset=Order.objects.none() is used to prevent the form from displaying any existing data (since we are creating a new form)
     # It should belong to updateOrder function if we want to display existing data
@@ -89,7 +89,7 @@ def updateOrder(request, pk):
         formset = OrderFormSet(request.POST, instance=customer)
         if formset.is_valid():
             formset.save()
-            messages.success(request, f'Order was updated successfully for {customer.name}')
+            messages.success(request, f'{order.product.name} was updated successfully for {customer.name}')
             return redirect(reverse('home'))
        
 
@@ -100,11 +100,15 @@ def updateOrder(request, pk):
     return render(request, 'forms/order_form.html', context)
 
 def deleteOrder(request, pk):
-    order = Order.objects.get(id=pk)
+    order = get_object_or_404(Order, id=pk)
 
     if request.method == 'POST':
+
+        if 'Cancel' in request.POST:
+            messages.info(request, f'{order.product.name} was not deleted for {order.customer.name}!')
+            return redirect(reverse('home'))
         order.delete()
-        messages.success(request, f'Order was deleted successfully for {order.customer.name}')
+        messages.success(request, f'{order.product.name} was deleted successfully for {order.customer.name}')
         return redirect(reverse('home'))
     
     context = {
@@ -147,3 +151,19 @@ def login(request):
 def logout(request):
     auth_logout(request)
     return redirect(reverse('login'))
+
+def updateCustomer(request, pk):
+    customer = get_object_or_404(Customer, id=pk)
+    form = CustomerForm(instance=customer)
+    if request.method == 'POST':
+        if 'Cancel' in request.POST:
+            messages.info(request, f'{customer.name} was not updated!')
+            return redirect(reverse('home'))
+        form = CustomerForm(request.POST, instance=customer)
+        if form.is_valid():
+            customer.save()
+            messages.success(request, f'{customer.name} was updated successfully!')
+            return redirect(reverse('home'))
+        
+    return render(request, 'forms/customer_form.html', {'form': form})
+ 

@@ -22,3 +22,10 @@ class AuthenticateUserForm(AuthenticationForm):
     class Meta:
         model = User
         fields = ['username', 'password']
+
+class CustomerForm(ModelForm):
+    class Meta:
+        model = Customer
+        fields = '__all__'
+        exclude = ['date_created']
+
