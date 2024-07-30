@@ -8,7 +8,7 @@ from django.forms import inlineformset_factory # Allows creation of multiple for
 
 from .filters import *
 from django.contrib import messages
-from django.contrib.auth import authenticate, login as auth_login, logout
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 
 # Create your views here.
 def home(request):
@@ -143,3 +143,7 @@ def login(request):
             messages.error(request, 'Invalid user and password. Please try again!')
 
     return render(request, 'forms/login.html', {'form': form})
+
+def logout(request):
+    auth_logout(request)
+    return redirect(reverse('login'))
