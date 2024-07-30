@@ -55,7 +55,7 @@ def customer(request, pk):
     }
     return render(request, 'accounts/customer.html', context)
 
-
+@login_required(login_url='login')
 def createOrder(request, pk):
 
     # Have to declare the parent model first and then the child model (if there is a foreign key relationship)
@@ -84,6 +84,7 @@ def createOrder(request, pk):
     }
     return render(request, 'forms/order_form.html', context)
 
+@login_required(login_url='login')
 def updateOrder(request, pk):
     order = get_object_or_404(Order, id=pk)
     customer = order.customer
@@ -104,6 +105,7 @@ def updateOrder(request, pk):
     }
     return render(request, 'forms/order_form.html', context)
 
+@login_required(login_url='login')
 def deleteOrder(request, pk):
     order = get_object_or_404(Order, id=pk)
 
@@ -157,6 +159,7 @@ def logout(request):
     auth_logout(request)
     return redirect(reverse('login'))
 
+@login_required(login_url='login')
 def updateCustomer(request, pk):
     customer = get_object_or_404(Customer, id=pk)
     form = CustomerForm(instance=customer)
