@@ -114,6 +114,8 @@ def register(request):
         form = RegisterUserForm(request.POST)
         if form.is_valid():
             form.save()
+            user = form.cleaned_data.get('username')
+            messages.success(request, f'Account was created successfully! for {user}') # This is only seen at 127.0.0.1:800/admin (or admin panel)
             return redirect(reverse('login'))
     return render(request, 'forms/register.html', {'form': form})
 
