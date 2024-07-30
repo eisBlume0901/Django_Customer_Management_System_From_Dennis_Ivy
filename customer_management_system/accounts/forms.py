@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from . models import *
 from django import forms
-from django.contrib.auth.forms import UserCreationForm # Built-in form for user registration
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User # Built-in User model
 
 class OrderForm(ModelForm):
@@ -16,4 +16,9 @@ class RegisterUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
-    
+
+class AuthenticateUserForm(AuthenticationForm):
+
+    class Meta:
+        model = User
+        fields = ['username', 'password']
