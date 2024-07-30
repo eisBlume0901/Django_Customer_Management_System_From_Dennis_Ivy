@@ -10,11 +10,10 @@ from .filters import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
-from .decorators import unauthorized_user, allowed_users
+from .decorators import unauthorized_user
 
 # Create your views here.
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin_group'])
 def home(request):
     allOrders = Order.objects.order_by('-date_created') # Order by date created in descending order
     allCustomers = Customer.objects.all()
