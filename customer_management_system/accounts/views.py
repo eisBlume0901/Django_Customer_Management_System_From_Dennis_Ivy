@@ -9,31 +9,35 @@ from django.forms import inlineformset_factory # Allows creation of multiple for
 from .filters import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from .decorators import unauthorized_user
 
 # Create your views here.
-@login_required(login_url='login')
+# @permission_required(['accounts.view_order', 'accounts.view_customer'], login_url='login')
 def home(request):
-    allOrders = Order.objects.order_by('-date_created') # Order by date created in descending order
-    allCustomers = Customer.objects.all()
-    allPendingOrders = Order.objects.filter(status="Pending").count()
-    allOutOfDeliveryOrders = Order.objects.filter(status="Out for delivery").count()
-    allDeliveredOrders = Order.objects.filter(status="Delivered").count()
-    allOrdersCount = Order.objects.count()
 
-    context = {
-        'orders': allOrders,
-        'ordersCount': allOrdersCount,
-        'customers': allCustomers,
-        'pendingOrders': allPendingOrders,
-        'outOfDeliveryOrders': allOutOfDeliveryOrders,
-        'deliveredOrders': allDeliveredOrders,
-    }
+    if request.user.is_superuser:
+        allOrders = Order.objects.order_by('-date_created') # Order by date created in descending order
+        allCustomers = Customer.objects.all()
+        allPendingOrders = Order.objects.filter(status="Pending").count()
+        allOutOfDeliveryOrders = Order.objects.filter(status="Out for delivery").count()
+        allDeliveredOrders = Order.objects.filter(status="Delivered").count()
+        allOrdersCount = Order.objects.count()
 
-    return render(request, 'accounts/dashboard.html', context)
+        context = {
+            'orders': allOrders,
+            'ordersCount': allOrdersCount,
+            'customers': allCustomers,
+            'pendingOrders': allPendingOrders,
+            'outOfDeliveryOrders': allOutOfDeliveryOrders,
+            'deliveredOrders': allDeliveredOrders,
+        }
 
-@login_required(login_url='login')
+        return render(request, 'accounts/dashboard.html', context)
+    else:
+        return redirect(reverse('user', args=[request.user.id]))
+
+@permission_required('accounts.view_product', login_url='login')
 def products(request):
     allProducts = Product.objects.order_by('-date_created')
     return render(request, 'accounts/products.html', {'products': allProducts})
@@ -180,5 +184,4 @@ def updateCustomer(request, pk):
 
 def userPage(request, pk):
     user = get_object_or_404(User, id=pk)
-
     return render(request, 'accounts/user.html')

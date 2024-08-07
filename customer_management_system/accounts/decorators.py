@@ -10,3 +10,4 @@ def unauthorized_user(view_func):
         else:
             return view_func(request, *args, **kwargs) # call the original function (for example, register and login functions) 
     return wrapper_func
+

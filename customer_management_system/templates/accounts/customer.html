@@ -37,14 +37,23 @@
                         <td class="px-6 py-2">{{ order.date_created }}</td>
                         <td class="px-6 py-2">{{ order.status}}</td>
                         <td class="p-2">
-                            <a href="">
+                            {% if perms.accounts.change_order %}
+                            <a href="{% url 'update_order' order.id %}">
                                 <button class="font-medium bg-teal-700 text-indigo-300 rounded-lg px-4 py-2 hover:bg-teal-300 hover:text-indigo-800">Update</button>
                             </a>
+                            {% else %}
+{#                                You can put the word disabled in the button tag to disable the button if the user does not have the permission to update the order.#}
+                            <button class="font-medium bg-teal-700 text-indigo-300 rounded-lg px-4 py-2 hover:bg-teal-300 hover:text-indigo-800" disabled>Update</button>
+                            {% endif %}
                         </td>
                         <td class="p-2">
-                            <a href="">
-                                <button class="font-medium bg-pink-800 text-indigo-300 rounded-lg px-4 py-2 hover:bg-pink-300 hover:text-indigo-800">Remove</button>    
-                            </a>
+                            {% if perms.accounts.delete_order %}
+                                <a href="{% url 'delete_order' order.id %}">
+                                    <button class="font-medium bg-pink-800 text-indigo-300 rounded-lg px-4 py-2 hover:bg-pink-300 hover:text-indigo-800">Remove</button>    
+                                </a>
+                            {% else %}
+                                <button class="font-medium bg-pink-800 text-indigo-300 rounded-lg px-4 py-2 hover:bg-pink-300 hover:text-indigo-800" disabled>Remove</button>
+                            {% endif %}
                         </td>
                     </tr>
                     {% endfor %}
@@ -53,5 +62,4 @@
         </div>
         
     </div>
-</div>
 {% endblock %}
