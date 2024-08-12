@@ -13,29 +13,26 @@ from django.contrib.auth.decorators import login_required, permission_required
 from .decorators import unauthorized_user
 
 # Create your views here.
-# @permission_required(['accounts.view_order', 'accounts.view_customer'], login_url='login')
+@permission_required(['accounts.view_order', 'accounts.view_customer'], login_url='login')
 def home(request):
 
-    if request.user.is_superuser:
-        allOrders = Order.objects.order_by('-date_created') # Order by date created in descending order
-        allCustomers = Customer.objects.all()
-        allPendingOrders = Order.objects.filter(status="Pending").count()
-        allOutOfDeliveryOrders = Order.objects.filter(status="Out for delivery").count()
-        allDeliveredOrders = Order.objects.filter(status="Delivered").count()
-        allOrdersCount = Order.objects.count()
+    allOrders = Order.objects.order_by('-date_created') # Order by date created in descending order
+    allCustomers = Customer.objects.all()
+    allPendingOrders = Order.objects.filter(status="Pending").count()
+    allOutOfDeliveryOrders = Order.objects.filter(status="Out for delivery").count()
+    allDeliveredOrders = Order.objects.filter(status="Delivered").count()
+    allOrdersCount = Order.objects.count()
 
-        context = {
-            'orders': allOrders,
-            'ordersCount': allOrdersCount,
-            'customers': allCustomers,
-            'pendingOrders': allPendingOrders,
-            'outOfDeliveryOrders': allOutOfDeliveryOrders,
-            'deliveredOrders': allDeliveredOrders,
-        }
+    context = {
+        'orders': allOrders,
+        'ordersCount': allOrdersCount,
+        'customers': allCustomers,
+        'pendingOrders': allPendingOrders,
+        'outOfDeliveryOrders': allOutOfDeliveryOrders,
+        'deliveredOrders': allDeliveredOrders,
+    }
 
-        return render(request, 'accounts/dashboard.html', context)
-    else:
-        return redirect(reverse('user', args=[request.user.id]))
+    return render(request, 'accounts/dashboard.html', context)
 
 @permission_required('accounts.view_product', login_url='login')
 def products(request):
@@ -43,7 +40,7 @@ def products(request):
     return render(request, 'accounts/products.html', {'products': allProducts})
 
 # pk means primary key
-@login_required(login_url='login')
+@permission_required('accounts.view_customer', login_url='login')
 def customer(request, pk):
     customer = get_object_or_404(Customer, id=pk) # Much better than Customer.objects.get(id=pk) because it will return a 404 error if the customer does not exist
     orders = customer.order_set.all()
@@ -60,7 +57,7 @@ def customer(request, pk):
     }
     return render(request, 'accounts/customer.html', context)
 
-@login_required(login_url='login')
+@permission_required('accounts.add_order', login_url='login')
 def createOrder(request, pk):
 
     # Have to declare the parent model first and then the child model (if there is a foreign key relationship)
@@ -89,6 +86,7 @@ def createOrder(request, pk):
     }
     return render(request, 'forms/order_form.html', context)
 
+@permission_required('accounts.change_order', login_url='login')
 def updateOrder(request, pk):
     order = get_object_or_404(Order, id=pk)
     customer = order.customer
@@ -109,7 +107,7 @@ def updateOrder(request, pk):
     }
     return render(request, 'forms/order_form.html', context)
 
-@login_required(login_url='login')
+@permission_required('accounts.delete_order', login_url='login')
 def deleteOrder(request, pk):
     order = get_object_or_404(Order, id=pk)
 
@@ -155,7 +153,12 @@ def login(request):
             if user is not None:
                 auth_login(request, user)
                 messages.success(request, f'Welcome {username}!')
-                return redirect(reverse('home'))
+
+                # The if else at home is just confusing and unnecessary. We can just use a simple if else here to redirect the user to the appropriate page
+                if user.is_superuser:
+                    return redirect(reverse('home'))
+                else:
+                    return redirect(reverse('user', kwargs={'pk': user.id}))
         else:
             messages.error(request, 'Invalid user and password. Please try again!')
 
@@ -165,7 +168,7 @@ def logout(request):
     auth_logout(request)
     return redirect(reverse('login'))
 
-@login_required(login_url='login')
+@permission_required('accounts.view_customer', login_url='login')
 def updateCustomer(request, pk):
     customer = get_object_or_404(Customer, id=pk)
     form = CustomerForm(instance=customer)
