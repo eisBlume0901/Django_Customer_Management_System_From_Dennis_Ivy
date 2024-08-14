@@ -7,6 +7,38 @@
     {% csrf_token %}
 
     <div class="flex flex-col gap-4">
+    
+    
+        <div class="text-lg text-indigo-800 font-medium">
+            {{ form.first_name.label }}
+        </div>
+        <div class="w-full">
+            {{ form.first_name }}
+
+            {% if form.first_name.errors %}
+                {% for error in form.first_name.errors %}
+                    <div class="text-indigo-800 text-xs mt-2">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    
+        <div class="text-lg text-indigo-800 font-medium">
+            {{ form.last_name.label }}
+        </div>
+        <div class="w-full">
+            {{ form.last_name }}
+
+            {% if form.last_name.errors %}
+                {% for error in form.last_name.errors %}
+                    <div class="text-indigo-800 text-xs mt-2">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    
         <div class="text-lg text-indigo-800 font-medium">
             {{ form.username.label }}
         </div>

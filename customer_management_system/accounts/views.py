@@ -1,3 +1,4 @@
+from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.urls import reverse
@@ -133,8 +134,18 @@ def register(request):
     if request.method == 'POST':
         form = RegisterUserForm(request.POST)
         if form.is_valid():
-            form.save()
-            user = form.cleaned_data.get('username')
+            user = form.save()
+
+            # Adding user to customer_grp
+            group = Group.objects.get(name='customer_grp')
+            group.user_set.add(user.id)
+
+            # Relate customer and user
+            Customer.objects.create(
+                user=user,
+                name=user.first_name + " " + user.last_name,
+            )
+
             messages.success(request, f'Account was created successfully! for {user}') # This is only seen at 127.0.0.1:800/admin (or admin panel)
             return redirect(reverse('login'))
         else:
@@ -184,7 +195,7 @@ def updateCustomer(request, pk):
         
     return render(request, 'forms/customer_form.html', {'form': form})
 
-
+@login_required(login_url='login')
 def userPage(request, pk):
     user = get_object_or_404(User, id=pk)
     userOrder = Order.objects.filter(customer__user=user)

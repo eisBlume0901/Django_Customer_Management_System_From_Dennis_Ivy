@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -15,11 +15,6 @@ class Customer(models.Model):
 
     # str is for user friendly representation of the object
 
-    # Overriding the save method to add the user to the customer group so that we can easily manage permissions
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        group, created = Group.objects.get_or_create(name='customer')
-        self.user.groups.add(group)
     def __str__(self) -> str:
         return self.name if self.name else "Unknown Customer"
 
@@ -69,4 +64,3 @@ class Tag(models.Model):
 
     def __str__(self) -> str:
         return self.name
-    
