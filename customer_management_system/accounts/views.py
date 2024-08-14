@@ -187,4 +187,15 @@ def updateCustomer(request, pk):
 
 def userPage(request, pk):
     user = get_object_or_404(User, id=pk)
-    return render(request, 'accounts/user.html')
+    userOrder = Order.objects.filter(customer__user=user)
+    allOrdersCount = userOrder.count()
+    allDeliveredOrdersCount = userOrder.filter(status="Delivered").count()
+    allPendingOrdersCount = userOrder.filter(status="Pending").count()
+
+    context = {
+        "ordersCount": allOrdersCount,
+        "deliveredOrders": allDeliveredOrdersCount,
+        "pendingOrders": allPendingOrdersCount,
+        "orders": userOrder,
+    }
+    return render(request, 'accounts/user.html', context)

@@ -1,0 +1,59 @@
+<div class="max-w-screen-lg mx-auto my-6">
+    
+        <div class="relative overflow-x-auto shadow-md rounded-lg">
+            <table class="w-full text-sm text-left text-indigo-300">
+                <thead class="text-xs text-indigo-300 bg-indigo-800">
+                    <tr>
+                        <th class="px-6 py-2">
+                            Products
+                        </th>
+                        <th class="px-6 py-2">
+                            Category
+                        </th>
+                        <th class="px-6 py-2">
+                            Date Ordered
+                        </th>
+                        <th class="px-6 py-2">
+                            Status
+                        </th>
+                        <th class="p-2">
+                            Update
+                        </th>
+                        <th class="p-2">
+                            Remove
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="text-xs text-indigo-800 font-medium">
+                    {% for order in orders %}
+                    <tr class="bg-indigo-300 border-b-2 border-indigo-800 hover:bg-indigo-200">
+                        <td class="px-6 py-2">{{ order.product }}</td>
+                        <td class="px-6 py-2">{{ order.product.category }}</td>
+                        <td class="px-6 py-2">{{ order.date_created }}</td>
+                        <td class="px-6 py-2">{{ order.status}}</td>
+                        <td class="p-2">
+                            {% if perms.accounts.change_order %}
+                            <a href="{% url 'update_order' order.id %}">
+                                <button class="font-medium bg-teal-700 text-indigo-300 rounded-lg px-4 py-2 hover:bg-teal-300 hover:text-indigo-800">Update</button>
+                            </a>
+                            {% else %}
+{#                                You can put the word disabled in the button tag to disable the button if the user does not have the permission to update the order.#}
+                            <button class="font-medium bg-teal-700 text-indigo-300 rounded-lg px-4 py-2 hover:bg-teal-300 hover:text-indigo-800" disabled>Update</button>
+                            {% endif %}
+                        </td>
+                        <td class="p-2">
+                            {% if perms.accounts.delete_order %}
+                                <a href="{% url 'delete_order' order.id %}">
+                                    <button class="font-medium bg-pink-800 text-indigo-300 rounded-lg px-4 py-2 hover:bg-pink-300 hover:text-indigo-800">Remove</button>    
+                                </a>
+                            {% else %}
+                                <button class="font-medium bg-pink-800 text-indigo-300 rounded-lg px-4 py-2 hover:bg-pink-300 hover:text-indigo-800" disabled>Remove</button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
