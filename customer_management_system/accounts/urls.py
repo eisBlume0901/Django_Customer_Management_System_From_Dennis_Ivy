@@ -14,7 +14,9 @@ urlpatterns = [
     # pk means primary key, it is a parameter to be passed to the view
     # The view will then use this parameter to query the database
     # Purpose is for dynamic routing
-    path('user/<int:pk>', views.userPage, name="user"),
+    path('user/<int:pk>/profile', views.userProfileSettings, name="userProfileSettings"),
+
+    path('user/<int:pk>', views.userHome, name="userPage"),
     path('customer/<str:pk>/', views.customer, name="customer"),
     path('update_customer/<str:pk>/', views.updateCustomer, name="update_customer"),
     path('create_order/<str:pk>/', views.createOrder, name="create_order"),

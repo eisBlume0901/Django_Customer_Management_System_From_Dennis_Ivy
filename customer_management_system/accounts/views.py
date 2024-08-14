@@ -169,11 +169,12 @@ def login(request):
                 if user.is_superuser:
                     return redirect(reverse('home'))
                 else:
-                    return redirect(reverse('user', kwargs={'pk': user.id}))
+                    return redirect(reverse('userPage', kwargs={'pk': user.id}))
         else:
             messages.error(request, 'Invalid user and password. Please try again!')
 
     return render(request, 'forms/login.html', {'form': form})
+
 
 def logout(request):
     auth_logout(request)
@@ -194,9 +195,8 @@ def updateCustomer(request, pk):
             return redirect(reverse('home'))
         
     return render(request, 'forms/customer_form.html', {'form': form})
-
 @login_required(login_url='login')
-def userPage(request, pk):
+def userHome(request, pk):
     user = get_object_or_404(User, id=pk)
     userOrder = Order.objects.filter(customer__user=user)
     allOrdersCount = userOrder.count()
@@ -210,3 +210,8 @@ def userPage(request, pk):
         "orders": userOrder,
     }
     return render(request, 'accounts/user.html', context)
+
+@login_required(login_url='login')
+def userProfileSettings(request, pk):
+    user = get_object_or_404(User, id=pk)
+    return render(request, 'forms/profile_form.html')

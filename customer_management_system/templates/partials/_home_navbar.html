@@ -5,10 +5,22 @@
             <img src="{% static 'images/ProMonitor_logo.png' %}" alt="ProMonitor Logo" class="w-20">
         </a>
         <div class="flex gap-4 items-center">
-            <span class="text-indigo-300 font-medium text-xs">Hello {{request.user}}</span>
-            <a href="{% url 'home' %}" class="text-indigo-300 text-xs px-2 py-1 font-medium hover:rounded-md hover:bg-indigo-200 hover:text-indigo-800">Dashboard</a>
-            <a href="{% url 'products' %}" class="text-indigo-300 text-xs px-2 py-1 font-medium hover:rounded-md hover:bg-indigo-200 hover:text-indigo-800">Products</a>
-            <a href="{% url 'logout' %}" class="text-indigo-300 text-xs px-2 py-1 font-medium hover:rounded-md hover:bg-indigo-200 hover:text-indigo-800">Logout</a>
+             {% if request.user.is_authenticated %}
+                <span class="text-indigo-300 font-medium text-xs">Welcome {{ request.user.customer.name }}</span>
+                 <div class="w-14 h-14 object-cover rounded-full overflow-hidden">
+                 {% if request.user.customer.avatar %}
+                      <img src="{{ request.user.customer.avatar.url }}" alt="Profile Picture" class="w-full h-full"/>
+                {% else %}
+                     <img src="{% static 'images/default_user_image.png' %}" alt="Profile Picture" class="w-14 h-14 p-2"/>
+                {% endif %}
+                 </div>
+                 {% if request.user.is_superuser %}
+                    <a href="{% url 'home' %}" class="text-indigo-300 text-xs px-2 py-1 font-medium hover:rounded-md hover:bg-indigo-200 hover:text-indigo-800">Dashboard</a>
+                {% endif %}
+                    <a href="{% url 'products' %}" class="text-indigo-300 text-xs px-2 py-1 font-medium hover:rounded-md hover:bg-indigo-200 hover:text-indigo-800">Products</a>
+                    <a href="{% url 'userProfileSettings' request.user.id %}" class="text-indigo-300 text-xs px-2 py-1 font-medium hover:rounded-md hover:bg-indigo-200 hover:text-indigo-800">Profile</a>
+                    <a href="{% url 'logout' %}" class="text-indigo-300 text-xs px-2 py-1 font-medium hover:rounded-md hover:bg-indigo-200 hover:text-indigo-800">Logout</a>
+            {% endif %}
         </div>
 
     </div>

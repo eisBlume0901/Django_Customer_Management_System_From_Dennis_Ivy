@@ -9,12 +9,14 @@ class Customer(models.Model):
     phone = models.CharField(max_length=200, null=True)
     email = models.EmailField(max_length=200, null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
-
+    # blank=True means that it is allowed to be empty in forms (this is what the
+    # null=True means that it is allowed to be empty in the database
+    # setup MEDIA_ROOT in settings.py to store the images
+    avatar = models.ImageField(null=True, blank=True, default='images/default_user_image.png')
     # For Laravel, this is added in migrations file
     # And the model, only includes the connection of foreign key and sql statement
 
-    # str is for user friendly representation of the object
-
+    # str is for user-friendly representation of the object
     def __str__(self) -> str:
         return self.name if self.name else "Unknown Customer"
 

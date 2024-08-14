@@ -130,6 +130,10 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/images/'
 
+# Redirects all avatars to the user_images folder
+# It automatically creates the user_images folder no need to specify under models the uplaod_to parameter
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/user_images')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
