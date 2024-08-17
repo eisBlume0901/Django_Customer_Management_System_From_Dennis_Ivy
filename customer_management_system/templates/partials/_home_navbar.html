@@ -1,11 +1,17 @@
 {% load static %}
 <nav class="bg-indigo-950 border-b-2 border-b-indigo-300">
     <div class="flex flex-wrap justify-between mx-auto items-center max-w-screen-lg">
-        <a href="{% url 'home' %}">
-            <img src="{% static 'images/ProMonitor_logo.png' %}" alt="ProMonitor Logo" class="w-20">
-        </a>
-        <div class="flex gap-4 items-center">
-             {% if request.user.is_authenticated %}
+     {% if request.user.is_authenticated %}
+         {% if request.user.is_superuser %}
+             <a href="{% url 'home' %}">
+                <img src="{% static 'images/ProMonitor_logo.png' %}" alt="ProMonitor Logo" class="w-20">
+             </a>
+         {% else %}
+               <a href="{% url 'userPage' request.user.id %}">
+                    <img src="{% static 'images/ProMonitor_logo.png' %}" alt="ProMonitor Logo" class="w-20">
+               </a>
+         {% endif %}
+            <div class="flex gap-4 items-center">
                 <span class="text-indigo-300 font-medium text-xs">Welcome {{ request.user.customer.name }}</span>
                  <div class="w-14 h-14 object-cover rounded-full overflow-hidden">
                  {% if request.user.customer.avatar %}
@@ -20,8 +26,9 @@
                     <a href="{% url 'products' %}" class="text-indigo-300 text-xs px-2 py-1 font-medium hover:rounded-md hover:bg-indigo-200 hover:text-indigo-800">Products</a>
                     <a href="{% url 'userProfileSettings' request.user.id %}" class="text-indigo-300 text-xs px-2 py-1 font-medium hover:rounded-md hover:bg-indigo-200 hover:text-indigo-800">Profile</a>
                     <a href="{% url 'logout' %}" class="text-indigo-300 text-xs px-2 py-1 font-medium hover:rounded-md hover:bg-indigo-200 hover:text-indigo-800">Logout</a>
-            {% endif %}
-        </div>
-
+            </div>
+     {% else %}
+          <img src="{% static 'images/ProMonitor_logo.png' %}" alt="ProMonitor Logo" class="w-20">
+    {% endif %}
     </div>
 </nav>

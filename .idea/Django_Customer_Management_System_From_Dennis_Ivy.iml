@@ -17,7 +17,7 @@
       <sourceFolder url="file://$MODULE_DIR$/customer_management_system" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.11 (Django_Customer_Management_System_From_Dennis_Ivy)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.12 (Django_Customer_Management_System_From_Dennis_Ivy)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PyDocumentationSettings">
